@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class HttpHeadersValidator {
 
-	@Value("${lenskart.api.key}")
+	@Value("${review.movie.api.key}")
 	private String apiKey;
 
-	@Value("${lenskart.appId}")
+	@Value("${review.movie.app.id}")
 	private String appId;
 	
 	/** The logger. */

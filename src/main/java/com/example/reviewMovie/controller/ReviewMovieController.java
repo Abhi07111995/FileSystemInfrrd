@@ -189,7 +189,7 @@ public class ReviewMovieController {
 	@RequestMapping(method = RequestMethod.GET, value = ("/movie/upcoming"))
 	public Response getUpcomingList(@RequestParam(value = "language", required = false) String language,
 			@RequestParam(value = "page", required = false) int page,
-			@RequestParam(value = "region", required = false) Optional<String> region,
+			@RequestParam(value = "region", required = false) Optional<String> region,	
             HttpServletRequest request) {
 		Response response=null;
 		try
