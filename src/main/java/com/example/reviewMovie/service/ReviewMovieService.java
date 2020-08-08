@@ -1,6 +1,7 @@
 package com.example.reviewMovie.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +20,10 @@ public interface ReviewMovieService {
 	boolean BookmarkMovie(Bookmark bookmark, HttpServletRequest httpServletRequest);
 
 	List<BookmarkedMovie> getBookmarkedMovie(int userId, HttpServletRequest httpServletRequest);
+
+	List<Movie> getGenreMovieList(String language);
+
+	List<Movie> getUpcomingList(String language, int page, Optional<String> region);
 
 	
 

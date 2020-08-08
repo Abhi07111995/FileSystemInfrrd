@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity(name="Movie")
+@Entity(name="movie")
 public class Movie {
 	
 	@Id
@@ -24,5 +24,6 @@ public class Movie {
 	int movieRating;
 	boolean released;
 	Timestamp releaseDate;
+	String language;
 
 }

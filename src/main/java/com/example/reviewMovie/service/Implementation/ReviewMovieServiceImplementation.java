@@ -3,6 +3,7 @@ package com.example.reviewMovie.service.Implementation;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Service;
 
 import com.example.reviewMovie.bean.LoginResponse;
 import com.example.reviewMovie.cache.service.CacheService;
@@ -24,6 +26,7 @@ import com.example.reviewMovie.repo.MovieRepo;
 import com.example.reviewMovie.service.ReviewMovieService;
 import com.example.reviewMovie.util.AuthUtil;
 
+@Service
 public class ReviewMovieServiceImplementation implements ReviewMovieService {
 
 	private static Logger LOGGER = LoggerFactory.getLogger(ReviewMovieServiceImplementation.class);
@@ -97,6 +100,22 @@ public class ReviewMovieServiceImplementation implements ReviewMovieService {
 			LOGGER.info(e.getMessage());
 		}
 		return bookmarkedMovies;
+	}
+	@Override
+	public List<Movie> getGenreMovieList(String language) {
+		List<Movie>  bookmarkedMovies=null;
+		try
+		{
+			bookmarkedMovies=movieRepo.getGenreMovieList(language);
+		}
+		catch (Exception e) {
+			LOGGER.info(e.getMessage());
+		}
+		return bookmarkedMovies;
+	}
+	@Override
+	public List<Movie> getUpcomingList(String language, int page, Optional<String> region) {
+		return null;
 	}
 	
 }

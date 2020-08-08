@@ -15,5 +15,6 @@ public class BookmarkedMovie {
 	@Column(name = "id")
 	private String id;
 	String movieName;
+	String movieUrl;
 
 }

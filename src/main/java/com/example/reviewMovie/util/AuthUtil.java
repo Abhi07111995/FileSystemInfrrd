@@ -64,7 +64,7 @@ import java.util.List;
 public class AuthUtil {
 
     private static final String AUDIENCE = "";
-    private static final String ISSUER = "LENSKART, LOCAL-FITTING ADMINDASHBOARD";
+    private static final String ISSUER = "Stack-Pro, reviewMovie ADMINDASHBOARD";
     private static final String SIGNING_KEY = "Long@^($%AndHardToGuess@^($%ValueWithSpecial@^($%Characters@^($%*$%";
     private static final Long durationhours = (long) 24 * 1; // Make it for 30 days!
 

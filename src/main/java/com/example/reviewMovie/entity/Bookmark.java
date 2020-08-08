@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import lombok.Data;
 
 @Data
-@Entity(name="Bookmark")
+@Entity(name="bookmark")
 public class Bookmark {
 	
 	@Id

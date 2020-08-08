@@ -1,5 +1,7 @@
 package com.example.reviewMovie.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,11 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.reviewMovie.bean.LoginRequest;
 import com.example.reviewMovie.bean.Response;
 import com.example.reviewMovie.entity.Bookmark;
+import com.example.reviewMovie.service.IAuthenticationService;
 import com.example.reviewMovie.service.ReviewMovieService;
 import com.example.reviewMovie.util.AuthUtil;
 
@@ -24,8 +28,8 @@ import com.example.reviewMovie.util.AuthUtil;
 @RestController
 public class ReviewMovieController {
 	
-	@Value("${reviewMovieDashboard.password}")
-	private String password;
+	@Autowired
+	IAuthenticationService iAuthenticationService; 
 	@Autowired
 	ReviewMovieService reviewMovieService;
 	public static final Logger logger = LoggerFactory.getLogger(ReviewMovieController.class);
@@ -107,7 +111,7 @@ public class ReviewMovieController {
 		}
 	}
 	
-	@RequestMapping(method = RequestMethod.PUT, value = ("/bookmarkMovie/{bookmark}"))
+	@RequestMapping(method = RequestMethod.PUT, value = ("/bookmarkMovie"))
 	public Response getMovieList(@RequestBody Bookmark bookmark,HttpServletRequest httpServletRequest)
 	{
 		Response response=null;
@@ -153,5 +157,59 @@ public class ReviewMovieController {
            response.setSuccess(false);
            return response;
 		}
+	}
+	
+
+	@RequestMapping(method = RequestMethod.GET, value = ("/genre/movie/list"))
+	public Response getGenreMovieList(@RequestParam(value = "language", required = false) String language,
+            HttpServletRequest request) {
+		Response response=null;
+		try
+		{
+			AuthUtil auth=new AuthUtil();
+			boolean isAuthenticated = auth.isValidToken(request.getHeader("X-Review-Movie-Email"),request.getHeader("X-Review-Movie-Session-Token"));
+			response=new Response();
+			response.setResult(reviewMovieService.getGenreMovieList(language));
+			response.setMsg("successfull");
+			response.setSuccess(true);
+			return response;
+		}
+		catch (Exception e) {
+		   response.setResult(null);
+		   if(e.getMessage()==null)
+			   response.setMsg("Failed");
+           response.setMsg(e.getMessage());
+           response.setSuccess(false);
+           return response;
+		}
+		
+	}
+	
+
+	@RequestMapping(method = RequestMethod.GET, value = ("/movie/upcoming"))
+	public Response getUpcomingList(@RequestParam(value = "language", required = false) String language,
+			@RequestParam(value = "page", required = false) int page,
+			@RequestParam(value = "region", required = false) Optional<String> region,
+            HttpServletRequest request) {
+		Response response=null;
+		try
+		{
+			AuthUtil auth=new AuthUtil();
+			boolean isAuthenticated = auth.isValidToken(request.getHeader("X-Review-Movie-Email"),request.getHeader("X-Review-Movie-Session-Token"));
+			response=new Response();
+			response.setResult(reviewMovieService.getUpcomingList(language,page,region));
+			response.setMsg("successfull");
+			response.setSuccess(true);
+			return response;
+		}
+		catch (Exception e) {
+		   response.setResult(null);
+		   if(e.getMessage()==null)
+			   response.setMsg("Failed");
+           response.setMsg(e.getMessage());
+           response.setSuccess(false);
+           return response;
+		}
+		
 	}
 }
