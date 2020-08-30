@@ -1,10 +1,12 @@
-package com.example.reviewMovie;
+package com.example.fileSystem;
+
 
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -25,17 +27,15 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableScheduling
 @ComponentScan
-public class ReviewMoviesApplication {
+public class FileSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ReviewMoviesApplication.class, args);
+		SpringApplication.run(FileSystemApplication.class, args);
 	}
 	private List<Parameter> getGlobalHeaders() {
 		List<Parameter> parametersList = new LinkedList<>();
-		parametersList.add(getParameter("X-Review-Movie-Session-Token", "Valid Session Token", "string", "header", false));
-		parametersList.add(getParameter("X-Review-Movie-Email", "Valid Session Token", "string", "header", false));
-		parametersList.add(getParameter("X-Review-Movie-App-Id", "Valid App Id", "string", "header", true));
-		parametersList.add(getParameter("X-Review-Movie-API-Key", "Valid Api Key", "string", "header", true));
+		parametersList.add(getParameter("X-file-system-App-Id", "Valid App Id", "string", "header", true));
+		parametersList.add(getParameter("X-file-system-API-Key", "Valid Api Key", "string", "header", true));
 		return parametersList;
 	}
 
@@ -63,8 +63,8 @@ public class ReviewMoviesApplication {
 	
 	@Bean
 	public Docket reviewMovieDocumentation() {
-		String groupName = "review Movie";
-		String basePackage = "com.example.reviewMovie.controller";
+		String groupName = "File System";
+		String basePackage = "com.example.fileSystem.controller";
 		return getDocumentation(groupName, basePackage);
 	}
 	
@@ -75,9 +75,9 @@ public class ReviewMoviesApplication {
 	}
 
 	private ApiInfo metadata() {
-		return new ApiInfoBuilder().title("movie review Documentation")
-		                .description("movie review Documentation with Swagger")
-		                .contact("Product movie review").version("1.0").build();
+		return new ApiInfoBuilder().title("file system Documentation")
+		                .description("file system Documentation with Swagger")
+		                .contact("Product file system").version("1.0").build();
 	}
 	
 
